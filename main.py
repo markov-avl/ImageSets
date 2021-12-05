@@ -5,7 +5,7 @@ from json import dump
 
 
 async def get_encoded_image(session: ClientSession) -> str:
-    async with session.get('https://picsum.photos/450/750') as response:
+    async with session.get('https://picsum.photos/750/450') as response:
         return b64encode(await response.content.read()).decode("utf-8")
 
 
@@ -13,7 +13,7 @@ async def get_image_set(session: ClientSession) -> set:
     return {await get_encoded_image(session) for _ in range(15)}  # количество фотографий в сете
 
 
-def save_image_set(image_set: set[str], image_set_number: int) -> None:
+def save_image_set(image_set: set, image_set_number: int) -> None:
     with open(f'image-sets/image-set-{image_set_number}.json', 'w') as outfile:
         dump([image for image in image_set], outfile, indent=2)
 
