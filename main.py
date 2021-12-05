@@ -10,7 +10,7 @@ async def get_encoded_image(session: ClientSession) -> str:
 
 
 async def get_image_set(session: ClientSession) -> set:
-    return {await get_encoded_image(session) for _ in range(5)}
+    return {await get_encoded_image(session) for _ in range(15)}  # количество фотографий в сете
 
 
 def save_image_set(image_set: set[str], image_set_number: int) -> None:
@@ -24,7 +24,7 @@ async def perform_the_task(session: ClientSession, task_number: int) -> None:
 
 async def main():
     async with ClientSession() as session:
-        await asyncio.gather(*[perform_the_task(session, i) for i in range(5)])
+        await asyncio.gather(*[perform_the_task(session, i) for i in range(100)])  # количество сетов
 
 
 if __name__ == '__main__':
